@@ -10,6 +10,11 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+}
+
+
 app.post('/refresh', (req, res) => {
     const refreshToken = req.body.refreshToken
     const spotifyApi = new spotifyWebApi({
@@ -51,6 +56,10 @@ app.post('/login', (req, res) => {
         res.sendStatus(400)
     })
 })
+
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 app.get('/lyrics', async(req, res) => {
     const lyrics = (await lyricsFinder(req.query.artist, req.query.track)) || "No Lyrics Found"
