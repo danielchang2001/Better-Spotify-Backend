@@ -6,6 +6,10 @@ const lyricsFinder = require("lyrics-finder")
 // const PORT = process.env.PORT || 3000;
 const path = require('path')
 
+app.get('/', function (req, res) {
+    res.render('index', {});
+  });
+
 const app = express();
 app.use(cors())
 app.use(express.json())
