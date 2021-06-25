@@ -3,17 +3,13 @@ const express = require('express');
 const cors = require("cors")
 const spotifyWebApi = require('spotify-web-api-node')
 const lyricsFinder = require("lyrics-finder")
-
+const PORT = process.env.PORT || 3000;
+const path = require('path')
 
 const app = express();
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
-app.use(express.static('dist'));
-app.get('*', (request, response) => {
-response.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
 
 app.post('/refresh', (req, res) => {
     const refreshToken = req.body.refreshToken
@@ -62,8 +58,7 @@ app.get('/lyrics', async(req, res) => {
     res.json({lyrics})
 })
 
-// app.listen(process.env.PORT || 80)
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
-});
+app.listen(process.env.PORT || 80)
+// app.listen(PORT, () => {
+//     console.log(`Our app is running on port ${ PORT }`);
+// });
