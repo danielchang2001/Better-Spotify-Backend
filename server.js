@@ -7,7 +7,7 @@ const lyricsFinder = require("lyrics-finder")
 const path = require('path')
 
 app.get('/', function (req, res) {
-    res.render('login', {});
+    res.render('refresh', {});
   });
 
 const app = express();
